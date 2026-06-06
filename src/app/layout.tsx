@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import CartProvider from "@/componets/CartProvider";
+import CartProvider from "../componets/CartProvider";
 
 export const metadata: Metadata = {
   title: "Legacy Scents",
