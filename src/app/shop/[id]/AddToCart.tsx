@@ -15,6 +15,7 @@ interface Props {
     id: string
     name: string
     brand: string
+    image_url?: string
   }
   variants: Variant[]
 }
@@ -32,6 +33,7 @@ export default function AddToCart({ fragrance, variants }: Props) {
       brand: fragrance.brand,
       size: selectedVariant.size,
       price: selectedVariant.price,
+      image_url: fragrance.image_url,
     })
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)

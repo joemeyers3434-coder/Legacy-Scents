@@ -9,6 +9,7 @@ export interface CartItem {
   size: string
   price: number
   quantity: number
+  image_url?: string
 }
 
 interface CartStore {
