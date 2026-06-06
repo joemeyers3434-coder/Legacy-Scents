@@ -1,6 +1,6 @@
 'use client'
 
-import { useCartStore } from '@/store/cartStore'
+import { useCartStore } from '../store/cartStore'
 
 export default function NavCart() {
   const { openCart, count } = useCartStore()

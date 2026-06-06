@@ -2,7 +2,7 @@
 
 import { useCartStore } from '../store/cartStore'
 
-export default function CartDrawer() {
+export default function CartDrawerWrapper() {
   const { items, removeItem, updateQuantity, total, count, isOpen, closeCart } = useCartStore()
 
   async function handleCheckout() {
@@ -27,13 +27,11 @@ export default function CartDrawer() {
         zIndex: 201, transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
         transition: 'transform 0.3s ease', display: 'flex', flexDirection: 'column'
       }}>
-        {/* HEADER */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 24px', borderBottom: '1px solid #e5e5e5' }}>
           <span style={{ fontSize: '16px', fontWeight: 700, color: '#111' }}>Cart ({count()})</span>
           <button onClick={closeCart} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '20px', color: '#888', lineHeight: 1 }}>✕</button>
         </div>
 
-        {/* ITEMS */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '16px 24px' }}>
           {items.length === 0 ? (
             <div style={{ textAlign: 'center', paddingTop: '64px' }}>
@@ -70,7 +68,6 @@ export default function CartDrawer() {
           )}
         </div>
 
-        {/* FOOTER */}
         {items.length > 0 && (
           <div style={{ padding: '16px 24px', borderTop: '1px solid #e5e5e5' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>

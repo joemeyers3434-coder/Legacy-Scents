@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import CartProvider from "../componets/CartProvider";
+import CartDrawerWrapper from "./CartDrawerWrapper";
 
 export const metadata: Metadata = {
   title: "Legacy Scents",
@@ -11,7 +11,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body style={{ margin: 0 }}>
-        <CartProvider>{children}</CartProvider>
+        <CartDrawerWrapper />
+        {children}
       </body>
     </html>
   );

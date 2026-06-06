@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
-import NavCart from '@/componets/NavCart'
+import NavCart from '../../componets/NavCart'
 
 export const dynamic = 'force-dynamic'
 
