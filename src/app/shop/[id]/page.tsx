@@ -55,7 +55,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <div style={{ fontSize: '0.75rem', color: 'rgba(247,249,252,0.4)', marginBottom: '2rem', letterSpacing: '0.05em' }}>
             <span style={{ color: '#C9A84C', marginRight: '0.5rem' }}>Notes:</span>{fragrance.scent_notes}
           </div>
-          <AddToCart fragrance={{ id: fragrance.id, name: fragrance.name, brand: fragrance.brand }} variants={variants} />
+          <AddToCart fragrance={{ id: fragrance.id, name: fragrance.name, brand: fragrance.brand, image_url: fragrance.image_url }} variants={variants} />
         </div>
       </div>
     </main>
