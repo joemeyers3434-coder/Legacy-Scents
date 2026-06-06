@@ -1,6 +1,6 @@
 'use client'
 
-import { useCart } from './CartProvider'
+import { useCart } from '@/componets/CartProvider'
 import { useCartStore } from '@/store/cartStore'
 import Link from 'next/link'
 
