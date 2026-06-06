@@ -43,47 +43,51 @@ export default function AddToCart({ fragrance, variants }: Props) {
 
   return (
     <div>
-      <div style={{ marginBottom: '2rem' }}>
-        <div style={{ fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(247,249,252,0.5)', marginBottom: '1rem' }}>Select Size</div>
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+      <div style={{ marginBottom: '20px' }}>
+        <p style={{ fontSize: '12px', color: '#888', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '10px' }}>Select Size</p>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           {variants.map((v) => (
             <div
               key={v.id}
               onClick={() => setSelectedVariant(v)}
               style={{
-                padding: '0.75rem 1.25rem',
-                border: selectedVariant.id === v.id ? '1px solid #C9A84C' : '0.5px solid rgba(201,168,76,0.3)',
+                padding: '10px 16px',
+                border: selectedVariant.id === v.id ? '2px solid #111' : '1px solid #ddd',
                 cursor: 'pointer',
                 textAlign: 'center',
                 minWidth: '80px',
-                background: selectedVariant.id === v.id ? 'rgba(201,168,76,0.1)' : 'transparent',
-                transition: 'all 0.2s'
+                background: selectedVariant.id === v.id ? '#111' : '#fff',
+                color: selectedVariant.id === v.id ? '#fff' : '#111',
               }}
             >
-              <div style={{ fontSize: '0.85rem', fontWeight: 500, color: '#F7F9FC', marginBottom: '0.25rem' }}>{v.size}</div>
-              <div style={{ fontSize: '0.75rem', color: '#C9A84C' }}>${v.price}</div>
-              <div style={{ fontSize: '0.6rem', color: 'rgba(247,249,252,0.3)', marginTop: '0.25rem' }}>{v.stock_quantity} left</div>
+              <div style={{ fontSize: '13px', fontWeight: 600, marginBottom: '2px' }}>{v.size}</div>
+              <div style={{ fontSize: '12px', opacity: 0.8 }}>${v.price}</div>
             </div>
           ))}
         </div>
       </div>
+
+      <p style={{ fontSize: '18px', fontWeight: 700, color: '#111', marginBottom: '16px' }}>
+        ${selectedVariant?.price} USD
+      </p>
+
       <button
         onClick={handleAdd}
         style={{
-          padding: '1rem 2.5rem',
-          background: added ? '#2D5A3D' : '#C9A84C',
-          color: added ? '#F7F9FC' : '#0B1F3A',
+          width: '100%',
+          padding: '14px',
+          background: added ? '#2a7a3b' : '#111',
+          color: '#fff',
           border: 'none',
-          fontFamily: 'Jost, sans-serif',
-          fontSize: '0.75rem',
+          fontSize: '13px',
           fontWeight: 600,
-          letterSpacing: '0.14em',
+          letterSpacing: '0.04em',
           textTransform: 'uppercase',
           cursor: 'pointer',
-          transition: 'all 0.3s'
+          transition: 'background 0.2s',
         }}
       >
-        {added ? '✓ Added to Cart!' : 'Add to Cart'}
+        {added ? '✓ Added to Cart' : 'Add to Cart'}
       </button>
     </div>
   )

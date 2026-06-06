@@ -19,46 +19,64 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     .eq('id', id)
     .single()
 
-  if (!fragrance) return <div style={{ color: 'white', padding: '2rem' }}>Fragrance not found</div>
+  if (!fragrance) return <div style={{ padding: '2rem' }}>Fragrance not found</div>
 
   const variants = fragrance.variants?.sort((a: any, b: any) => a.price - b.price) || []
 
   return (
-    <main style={{ fontFamily: 'Georgia, serif', background: '#0B1F3A', minHeight: '100vh' }}>
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 3rem', borderBottom: '0.5px solid rgba(201,168,76,0.2)', position: 'sticky', top: 0, background: '#0B1F3A', zIndex: 100 }}>
-        <Link href="/" style={{ fontSize: '1.3rem', letterSpacing: '0.18em', color: '#C9A84C', textTransform: 'uppercase', textDecoration: 'none' }}>Legacy Scents</Link>
-        <div style={{ display: 'flex', gap: '2rem' }}>
-          <Link href="/shop" style={{ color: 'rgba(247,249,252,0.6)', textDecoration: 'none', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Shop</Link>
+    <main style={{ background: '#fff', minHeight: '100vh' }}>
+
+      <div style={{ background: '#111', color: '#fff', textAlign: 'center', padding: '8px', fontSize: '12px', letterSpacing: '0.05em' }}>
+        Free shipping on orders $75+
+      </div>
+
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 32px', borderBottom: '1px solid #e5e5e5', position: 'sticky', top: 0, background: '#fff', zIndex: 100 }}>
+        <Link href="/" style={{ fontSize: '18px', fontWeight: 700, color: '#111', textDecoration: 'none', letterSpacing: '-0.02em' }}>Legacy Scents</Link>
+        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          <Link href="/" style={{ color: '#111', textDecoration: 'none', fontSize: '14px' }}>Home</Link>
+          <Link href="/shop" style={{ color: '#111', textDecoration: 'none', fontSize: '14px' }}>Catalog</Link>
           <NavCart />
         </div>
       </nav>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '80vh' }}>
-        <div style={{ background: '#162D50', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4rem' }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '32px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'start' }}>
+        {/* IMAGE */}
+        <div style={{ background: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '48px', aspectRatio: '1' }}>
           {fragrance.image_url ? (
-            <img src={fragrance.image_url} alt={fragrance.name} style={{ maxWidth: '100%', maxHeight: '500px', objectFit: 'contain' }} />
+            <img src={fragrance.image_url} alt={fragrance.name} style={{ maxWidth: '100%', maxHeight: '400px', objectFit: 'contain' }} />
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '24px', height: '16px', background: '#C9A84C', borderRadius: '2px 2px 0 0' }}></div>
-              <div style={{ width: '18px', height: '24px', background: '#1E3D6B' }}></div>
-              <div style={{ width: '100px', height: '200px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: '3px 3px 6px 6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ color: 'rgba(201,168,76,0.4)', fontSize: '0.7rem', letterSpacing: '0.1em', textTransform: 'uppercase', writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>{fragrance.brand}</span>
-              </div>
-            </div>
+            <div style={{ fontSize: '12px', color: '#aaa', textTransform: 'uppercase' }}>{fragrance.brand}</div>
           )}
         </div>
 
-        <div style={{ padding: '4rem', color: '#F7F9FC', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <Link href="/shop" style={{ color: 'rgba(201,168,76,0.6)', textDecoration: 'none', fontSize: '0.7rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.5rem', display: 'block' }}>← Back to Shop</Link>
-          <span style={{ fontSize: '0.7rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: '0.5rem', display: 'block' }}>{fragrance.brand}</span>
-          <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 300, marginBottom: '1rem', lineHeight: 1.1 }}>{fragrance.name}</h1>
-          <p style={{ fontSize: '0.85rem', color: 'rgba(247,249,252,0.55)', lineHeight: 1.9, marginBottom: '1.5rem', fontWeight: 300 }}>{fragrance.description}</p>
-          <div style={{ fontSize: '0.75rem', color: 'rgba(247,249,252,0.4)', marginBottom: '2rem', letterSpacing: '0.05em' }}>
-            <span style={{ color: '#C9A84C', marginRight: '0.5rem' }}>Notes:</span>{fragrance.scent_notes}
-          </div>
-          <AddToCart fragrance={{ id: fragrance.id, name: fragrance.name, brand: fragrance.brand, image_url: fragrance.image_url }} variants={variants} />
+        {/* DETAILS */}
+        <div style={{ paddingTop: '16px' }}>
+          <Link href="/shop" style={{ fontSize: '12px', color: '#888', textDecoration: 'none', display: 'block', marginBottom: '16px' }}>← Back to catalog</Link>
+          <p style={{ fontSize: '11px', color: '#888', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px' }}>{fragrance.brand}</p>
+          <h1 style={{ fontSize: '28px', fontWeight: 700, color: '#111', marginBottom: '12px', letterSpacing: '-0.02em' }}>{fragrance.name}</h1>
+          {fragrance.scent_notes && (
+            <p style={{ fontSize: '13px', color: '#666', marginBottom: '24px', lineHeight: 1.6 }}>Notes: {fragrance.scent_notes}</p>
+          )}
+          {fragrance.description && (
+            <p style={{ fontSize: '14px', color: '#444', lineHeight: 1.7, marginBottom: '24px' }}>{fragrance.description}</p>
+          )}
+          <AddToCart
+            fragrance={{ id: fragrance.id, name: fragrance.name, brand: fragrance.brand, image_url: fragrance.image_url }}
+            variants={variants}
+          />
         </div>
       </div>
+
+      <footer style={{ borderTop: '1px solid #e5e5e5', padding: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginTop: '48px' }}>
+        <span style={{ fontWeight: 700, fontSize: '16px' }}>Legacy Scents</span>
+        <div style={{ display: 'flex', gap: '24px' }}>
+          <Link href="/" style={{ color: '#555', textDecoration: 'none', fontSize: '13px' }}>Home</Link>
+          <Link href="/shop" style={{ color: '#555', textDecoration: 'none', fontSize: '13px' }}>Catalog</Link>
+          <a href="mailto:supportlegacyscent.co@gmail.com" style={{ color: '#555', textDecoration: 'none', fontSize: '13px' }}>Contact</a>
+        </div>
+        <span style={{ fontSize: '12px', color: '#999' }}>© 2026 Legacy Scents</span>
+      </footer>
+
     </main>
   )
 }

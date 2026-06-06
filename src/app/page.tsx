@@ -1,6 +1,6 @@
-import NavCart from '@/componets/NavCart'
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
+import NavCart from '@/componets/NavCart'
 
 export const dynamic = 'force-dynamic'
 
@@ -13,190 +13,97 @@ export default async function Home() {
   const { data: fragrances } = await supabase
     .from('fragrances')
     .select('*, variants(*)')
-    .in('name', ['Night Drive', 'Sugar Blast'])
+    .order('name')
+
+  const featured = fragrances?.slice(0, 1)[0]
+  const designer = fragrances?.filter((f: any) => f.category === 'designer') ?? fragrances ?? []
+  const niche = fragrances?.filter((f: any) => f.category === 'niche') ?? []
 
   return (
-    <main style={{ fontFamily: 'Georgia, serif', background: '#0A0A0A', minHeight: '100vh' }}>
+    <main style={{ background: '#fff', minHeight: '100vh' }}>
 
-      {/* FREE SHIPPING BANNER */}
-      <div style={{ background: '#C9A84C', color: '#0A0A0A', textAlign: 'center', padding: '0.6rem', fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-        ✦ Free Shipping on All Orders $75+ ✦
+      {/* ANNOUNCEMENT BAR */}
+      <div style={{ background: '#111', color: '#fff', textAlign: 'center', padding: '8px', fontSize: '12px', letterSpacing: '0.05em' }}>
+        Free shipping on orders $75+
       </div>
 
       {/* NAV */}
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 3rem', borderBottom: '0.5px solid rgba(201,168,76,0.2)', background: '#0A0A0A', position: 'sticky', top: 0, zIndex: 100 }}>
-        <Link href="/" style={{ fontSize: '1.3rem', letterSpacing: '0.18em', color: '#C9A84C', textTransform: 'uppercase', textDecoration: 'none' }}>Legacy Scents</Link>
-        <div style={{ display: 'flex', gap: '2rem' }}>
-          <Link href="/shop" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Shop</Link>
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 32px', borderBottom: '1px solid #e5e5e5', position: 'sticky', top: 0, background: '#fff', zIndex: 100 }}>
+        <Link href="/" style={{ fontSize: '18px', fontWeight: 700, color: '#111', textDecoration: 'none', letterSpacing: '-0.02em' }}>Legacy Scents</Link>
+        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          <Link href="/" style={{ color: '#111', textDecoration: 'none', fontSize: '14px' }}>Home</Link>
+          <Link href="/shop" style={{ color: '#111', textDecoration: 'none', fontSize: '14px' }}>Catalog</Link>
           <NavCart />
         </div>
       </nav>
 
       {/* HERO */}
-      <section style={{ position: 'relative', minHeight: '90vh', display: 'flex', alignItems: 'center', background: 'linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 50%, #0A0A0A 100%)' }}>
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '3px', height: '100%', background: 'linear-gradient(to bottom, transparent, #C9A84C, transparent)' }} />
-        <div style={{ position: 'absolute', top: 0, right: 0, width: '3px', height: '100%', background: 'linear-gradient(to bottom, transparent, #C9A84C, transparent)' }} />
-        <div style={{ width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', padding: '4rem 5rem', gap: '4rem' }}>
-          <div>
-            <div style={{ width: '40px', height: '1px', background: '#C9A84C', marginBottom: '1.5rem' }} />
-            <span style={{ fontSize: '0.65rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: '#C9A84C', display: 'block', marginBottom: '1rem' }}>Premium Fragrance Decants</span>
-            <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 300, color: '#ffffff', lineHeight: 1.05, marginBottom: '1.5rem' }}>
-              Luxury Scents.<br />
-              <em style={{ color: '#C9A84C', fontStyle: 'italic' }}>Sample First.</em>
-            </h1>
-            <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.9, marginBottom: '2.5rem', maxWidth: '400px', fontWeight: 300 }}>
-              Designer and niche fragrances decanted into sample and travel sizes. Experience luxury without the full bottle commitment.
+      {featured && (
+        <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '500px', borderBottom: '1px solid #e5e5e5' }}>
+          <div style={{ background: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '48px' }}>
+            {featured.image_url ? (
+              <img src={featured.image_url} alt={featured.name} style={{ maxWidth: '100%', maxHeight: '400px', objectFit: 'contain' }} />
+            ) : (
+              <div style={{ width: '200px', height: '300px', background: '#e0e0e0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#999' }}>{featured.brand}</div>
+            )}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '48px' }}>
+            <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{featured.brand}</p>
+            <h1 style={{ fontSize: '36px', fontWeight: 700, color: '#111', marginBottom: '16px', lineHeight: 1.1, letterSpacing: '-0.02em' }}>{featured.name}</h1>
+            <p style={{ fontSize: '14px', color: '#555', lineHeight: 1.7, marginBottom: '24px', maxWidth: '380px' }}>{featured.description || featured.scent_notes}</p>
+            <p style={{ fontSize: '16px', fontWeight: 600, color: '#111', marginBottom: '24px' }}>
+              From ${featured.variants?.length > 0 ? Math.min(...featured.variants.map((v: any) => Number(v.price))) : '—'}
             </p>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Link href="/shop" style={{ padding: '1rem 2.5rem', background: '#C9A84C', color: '#0A0A0A', textDecoration: 'none', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-                Shop Collection
-              </Link>
-              <Link href="/shop" style={{ padding: '1rem 2.5rem', background: 'transparent', color: '#ffffff', textDecoration: 'none', fontSize: '0.72rem', fontWeight: 400, letterSpacing: '0.14em', textTransform: 'uppercase', border: '0.5px solid rgba(255,255,255,0.3)' }}>
-                New Arrivals
-              </Link>
-            </div>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-            {fragrances?.map((f: any) => (
-              <Link key={f.id} href={`/shop/${f.id}`} style={{ textDecoration: 'none' }}>
-                <div style={{ background: '#111111', border: '0.5px solid rgba(201,168,76,0.2)', overflow: 'hidden' }}>
-                  <div style={{ height: '260px', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
-                    {f.image_url ? (
-                      <img src={f.image_url} alt={f.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
-                    ) : (
-                      <span style={{ color: '#999', fontSize: '0.65rem', textTransform: 'uppercase' }}>{f.brand}</span>
-                    )}
-                  </div>
-                  <div style={{ padding: '1rem' }}>
-                    <div style={{ fontSize: '0.58rem', color: '#C9A84C', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.25rem' }}>{f.brand}</div>
-                    <div style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', color: '#ffffff', marginBottom: '0.5rem' }}>{f.name}</div>
-                    <div style={{ fontSize: '0.72rem', color: '#C9A84C' }}>
-                      From ${f.variants?.length > 0 ? Math.min(...f.variants.map((v: any) => Number(v.price))) : '—'}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* LS LOGO SECTION */}
-      <section style={{ padding: '4rem 3rem', background: '#0A0A0A', textAlign: 'center', borderBottom: '0.5px solid rgba(201,168,76,0.15)' }}>
-        <div style={{ width: '160px', height: '160px', borderRadius: '50%', border: '1.5px solid #C9A84C', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
-          <div style={{ width: '140px', height: '140px', borderRadius: '50%', border: '0.5px solid rgba(201,168,76,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ fontFamily: 'Georgia, serif', fontSize: '3.5rem', fontWeight: 300, color: '#C9A84C', lineHeight: 1 }}>
-              <span style={{ display: 'inline-block', transform: 'translateX(4px)' }}>L</span>
-              <span style={{ display: 'inline-block', transform: 'translateX(-4px) translateY(8px)' }}>S</span>
-            </div>
-          </div>
-        </div>
-        <div style={{ marginTop: '1.5rem' }}>
-          <div style={{ fontFamily: 'Georgia, serif', fontSize: '1.1rem', fontWeight: 300, letterSpacing: '0.35em', textTransform: 'uppercase', color: '#ffffff' }}>Legacy Scents</div>
-          <div style={{ fontSize: '0.62rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.6)', marginTop: '0.4rem' }}>Premium Fragrance Decants</div>
-        </div>
-      </section>
-
-      {/* NEW ARRIVALS */}
-      <section style={{ padding: '5rem 3rem', background: '#ffffff' }}>
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <span style={{ fontSize: '0.63rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A84C', display: 'block', marginBottom: '0.75rem' }}>Just Dropped</span>
-          <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 300, color: '#0A0A0A' }}>New Arrivals</h2>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', maxWidth: '620px', margin: '0 auto' }}>
-          {fragrances?.map((f: any) => (
-            <Link key={f.id} href={`/shop/${f.id}`} style={{ textDecoration: 'none' }}>
-              <div style={{ background: '#111111', border: '0.5px solid rgba(201,168,76,0.15)', overflow: 'hidden' }}>
-                <div style={{ height: '380px', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-                  {f.image_url ? (
-                    <img src={f.image_url} alt={f.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
-                  ) : (
-                    <span style={{ color: '#999', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{f.brand}</span>
-                  )}
-                </div>
-                <div style={{ padding: '1.75rem' }}>
-                  <div style={{ fontSize: '0.62rem', color: '#C9A84C', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>{f.brand}</div>
-                  <div style={{ fontFamily: 'Georgia, serif', fontSize: '1.4rem', fontWeight: 300, color: '#ffffff', marginBottom: '0.4rem' }}>{f.name}</div>
-                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', marginBottom: '1.25rem', lineHeight: 1.6 }}>{f.scent_notes}</div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ fontSize: '0.85rem', color: '#C9A84C', fontWeight: 500 }}>
-                      From ${f.variants?.length > 0 ? Math.min(...f.variants.map((v: any) => Number(v.price))) : '—'}
-                    </div>
-                    <div style={{ padding: '0.6rem 1.25rem', background: '#C9A84C', color: '#0A0A0A', fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                      Shop Now
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <Link href={`/shop/${featured.id}`} style={{ display: 'inline-block', padding: '12px 28px', background: '#111', color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: 600, letterSpacing: '0.03em' }}>
+              Shop Now
             </Link>
-          ))}
-        </div>
-        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-          <Link href="/shop" style={{ padding: '0.9rem 2.5rem', background: 'transparent', color: '#C9A84C', textDecoration: 'none', fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', border: '0.5px solid rgba(201,168,76,0.4)' }}>
-            View Full Collection
-          </Link>
-        </div>
-      </section>
-
-      {/* ABOUT STRIP */}
-      <section style={{ padding: '4rem 3rem', background: '#111111', textAlign: 'center' }}>
-        <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 300, color: '#ffffff', marginBottom: '1rem' }}>Premium Decants. Authentic Scents.</h2>
-        <p style={{ fontSize: '0.87rem', color: 'rgba(255,255,255,0.45)', fontWeight: 300, maxWidth: '500px', margin: '0 auto 2.5rem', lineHeight: 1.9 }}>We source full bottles of designer and niche fragrances and decant them into sample and travel sizes — so you can explore the world of fine fragrance without the full bottle commitment.</p>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '3rem', flexWrap: 'wrap' }}>
-          {['100% Authentic', 'Free Shipping $75+', 'Sample Sizes Available', 'Premium Niche Scents'].map(item => (
-            <div key={item} style={{ fontSize: '0.72rem', color: '#C9A84C', letterSpacing: '0.1em', textTransform: 'uppercase' }}>✦ {item}</div>
-          ))}
-        </div>
-      </section>
-
-      {/* NEWSLETTER */}
-      <section style={{ padding: '5rem 3rem', background: '#0A0A0A', textAlign: 'center', borderTop: '0.5px solid rgba(201,168,76,0.15)' }}>
-        <div style={{ width: '40px', height: '1px', background: '#C9A84C', margin: '0 auto 1.5rem' }} />
-        <span style={{ fontSize: '0.63rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: '#C9A84C', display: 'block', marginBottom: '1rem' }}>Stay in the Know</span>
-        <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 300, color: '#ffffff', marginBottom: '1rem' }}>Join the Inner Circle</h2>
-        <p style={{ fontSize: '0.87rem', color: 'rgba(255,255,255,0.45)', fontWeight: 300, maxWidth: '420px', margin: '0 auto 2.5rem', lineHeight: 1.9 }}>
-          Be first to know about new arrivals, exclusive drops, and member-only offers.
-        </p>
-        <div style={{ display: 'flex', gap: '0', maxWidth: '480px', margin: '0 auto' }}>
-          <input
-            type="email"
-            placeholder="Your email address"
-            style={{ flex: 1, padding: '1rem 1.5rem', background: '#111111', border: '0.5px solid rgba(201,168,76,0.3)', borderRight: 'none', color: '#ffffff', fontSize: '0.78rem', letterSpacing: '0.05em', outline: 'none', fontFamily: 'Georgia, serif' }}
-          />
-          <button
-            type="button"
-            style={{ padding: '1rem 2rem', background: '#C9A84C', color: '#0A0A0A', border: 'none', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', cursor: 'pointer', whiteSpace: 'nowrap' }}
-          >
-            Subscribe
-          </button>
-        </div>
-        <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.2)', marginTop: '1rem', letterSpacing: '0.08em' }}>No spam. Unsubscribe anytime.</p>
-      </section>
-
-      {/* CUSTOMER SERVICE */}
-      <section style={{ padding: '5rem 3rem', background: '#111111', borderTop: '0.5px solid rgba(201,168,76,0.15)' }}>
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <div style={{ width: '40px', height: '1px', background: '#C9A84C', margin: '0 auto 1.5rem' }} />
-          <span style={{ fontSize: '0.63rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: '#C9A84C', display: 'block', marginBottom: '1rem' }}>We're Here For You</span>
-          <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 300, color: '#ffffff' }}>Customer Service</h2>
-        </div>
-        <div style={{ maxWidth: '400px', margin: '0 auto' }}>
-          <div style={{ background: '#0A0A0A', border: '0.5px solid rgba(201,168,76,0.15)', padding: '2.5rem 2rem', textAlign: 'center' }}>
-            <div style={{ fontSize: '1.8rem', color: '#C9A84C', marginBottom: '1rem' }}>✉</div>
-            <div style={{ fontFamily: 'Georgia, serif', fontSize: '1.1rem', fontWeight: 300, color: '#ffffff', marginBottom: '0.75rem' }}>Email Us</div>
-            <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.8, marginBottom: '1.5rem' }}>For any questions or concerns, reach out and we'll respond within 24 hours.</p>
-            <a href="mailto:supportlegacyscent.co@gmail.com" style={{ fontSize: '0.68rem', color: '#C9A84C', letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none', borderBottom: '0.5px solid rgba(201,168,76,0.4)', paddingBottom: '2px' }}>supportlegacyscent.co@gmail.com</a>
           </div>
+        </section>
+      )}
+
+      {/* ALL PRODUCTS */}
+      <section style={{ padding: '48px 32px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#111', marginBottom: '24px', letterSpacing: '-0.01em' }}>Shop the Collection</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '24px' }}>
+          {fragrances?.map((f: any) => (
+            <ProductCard key={f.id} f={f} />
+          ))}
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: '2.5rem 3rem', background: '#0A0A0A', borderTop: '0.5px solid rgba(201,168,76,0.15)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-        <div style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A84C' }}>Legacy Scents</div>
-        <a href="mailto:supportlegacyscent.co@gmail.com" style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)', textDecoration: 'none', letterSpacing: '0.08em' }}>supportlegacyscent.co@gmail.com</a>
-        <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.3)' }}>© 2026 Legacy Scents. All rights reserved.</div>
+      <footer style={{ borderTop: '1px solid #e5e5e5', padding: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', background: '#fff' }}>
+        <span style={{ fontWeight: 700, fontSize: '16px' }}>Legacy Scents</span>
+        <div style={{ display: 'flex', gap: '24px' }}>
+          <Link href="/" style={{ color: '#555', textDecoration: 'none', fontSize: '13px' }}>Home</Link>
+          <Link href="/shop" style={{ color: '#555', textDecoration: 'none', fontSize: '13px' }}>Catalog</Link>
+          <a href="mailto:supportlegacyscent.co@gmail.com" style={{ color: '#555', textDecoration: 'none', fontSize: '13px' }}>Contact</a>
+        </div>
+        <span style={{ fontSize: '12px', color: '#999' }}>© 2026 Legacy Scents</span>
       </footer>
 
     </main>
+  )
+}
+
+function ProductCard({ f }: { f: any }) {
+  const minPrice = f.variants?.length > 0 ? Math.min(...f.variants.map((v: any) => Number(v.price))) : null
+  return (
+    <Link href={`/shop/${f.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div style={{ border: '1px solid #e5e5e5', overflow: 'hidden', transition: 'box-shadow 0.2s' }}>
+        <div style={{ background: '#f5f5f5', height: '240px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+          {f.image_url ? (
+            <img src={f.image_url} alt={f.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+          ) : (
+            <div style={{ fontSize: '11px', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{f.brand}</div>
+          )}
+        </div>
+        <div style={{ padding: '14px' }}>
+          <p style={{ fontSize: '11px', color: '#888', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{f.brand}</p>
+          <p style={{ fontSize: '14px', fontWeight: 600, color: '#111', marginBottom: '6px' }}>{f.name}</p>
+          <p style={{ fontSize: '13px', color: '#555' }}>{minPrice ? `From $${minPrice} USD` : 'View sizes'}</p>
+        </div>
+      </div>
+    </Link>
   )
 }

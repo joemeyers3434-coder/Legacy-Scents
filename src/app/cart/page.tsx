@@ -18,75 +18,65 @@ export default function CartPage() {
   }
 
   return (
-    <main style={{ fontFamily: 'Georgia, serif', background: '#0A0A0A', minHeight: '100vh' }}>
+    <main style={{ background: '#fff', minHeight: '100vh' }}>
 
-      {/* FREE SHIPPING BANNER */}
-      <div style={{ background: '#C9A84C', color: '#0A0A0A', textAlign: 'center', padding: '0.6rem', fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-        ✦ Free Shipping on All Orders $75+ ✦
+      <div style={{ background: '#111', color: '#fff', textAlign: 'center', padding: '8px', fontSize: '12px', letterSpacing: '0.05em' }}>
+        Free shipping on orders $75+
       </div>
 
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 3rem', borderBottom: '0.5px solid rgba(201,168,76,0.2)', position: 'sticky', top: 0, background: '#0A0A0A', zIndex: 100 }}>
-        <Link href="/" style={{ fontSize: '1.3rem', letterSpacing: '0.18em', color: '#C9A84C', textTransform: 'uppercase', textDecoration: 'none' }}>Legacy Scents</Link>
-        <div style={{ display: 'flex', gap: '2rem' }}>
-          <Link href="/shop" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Shop</Link>
-          <Link href="/cart" style={{ color: '#C9A84C', textDecoration: 'none', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Cart ({count()})</Link>
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 32px', borderBottom: '1px solid #e5e5e5', background: '#fff' }}>
+        <Link href="/" style={{ fontSize: '18px', fontWeight: 700, color: '#111', textDecoration: 'none' }}>Legacy Scents</Link>
+        <div style={{ display: 'flex', gap: '24px' }}>
+          <Link href="/" style={{ color: '#111', textDecoration: 'none', fontSize: '14px' }}>Home</Link>
+          <Link href="/shop" style={{ color: '#111', textDecoration: 'none', fontSize: '14px' }}>Catalog</Link>
         </div>
       </nav>
 
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '4rem 2rem' }}>
-        <h1 style={{ fontFamily: 'Georgia, serif', fontSize: '2.5rem', fontWeight: 300, color: '#ffffff', marginBottom: '3rem' }}>Your Cart</h1>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '48px 32px' }}>
+        <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#111', marginBottom: '32px', letterSpacing: '-0.02em' }}>Your Cart</h1>
 
         {items.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '4rem 0' }}>
-            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1rem', marginBottom: '2rem' }}>Your cart is empty</p>
-            <Link href="/shop" style={{ padding: '0.85rem 2rem', background: '#C9A84C', color: '#0A0A0A', textDecoration: 'none', fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-              Shop the Collection
+          <div style={{ textAlign: 'center', padding: '64px 0' }}>
+            <p style={{ color: '#888', fontSize: '14px', marginBottom: '24px' }}>Your cart is empty</p>
+            <Link href="/shop" style={{ padding: '12px 28px', background: '#111', color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: 600 }}>
+              Browse Catalog
             </Link>
           </div>
         ) : (
           <>
-            <div style={{ marginBottom: '2rem' }}>
-              {items.map(item => (
-                <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '1.5rem 0', borderBottom: '0.5px solid rgba(201,168,76,0.15)' }}>
-                  
-                  {/* PRODUCT IMAGE */}
-                  <div style={{ width: '80px', height: '100px', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: '0.5px solid rgba(201,168,76,0.2)', padding: '0.5rem' }}>
-                    {item.image_url ? (
-                      <img src={item.image_url} alt={item.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
-                    ) : (
-                      <div style={{ fontSize: '0.55rem', color: '#C9A84C', letterSpacing: '0.05em', textTransform: 'uppercase', textAlign: 'center' }}>LS</div>
-                    )}
-                  </div>
-
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: '0.65rem', color: '#C9A84C', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.25rem' }}>{item.brand}</div>
-                    <div style={{ fontFamily: 'Georgia, serif', fontSize: '1.1rem', color: '#ffffff', marginBottom: '0.25rem' }}>{item.name}</div>
-                    <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>{item.size} · ${item.price}</div>
-                  </div>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <button onClick={() => updateQuantity(item.id, item.quantity - 1)} style={{ width: '28px', height: '28px', background: 'none', border: '0.5px solid rgba(201,168,76,0.3)', color: '#ffffff', cursor: 'pointer', fontSize: '1rem' }}>−</button>
-                    <span style={{ color: '#ffffff', fontSize: '0.9rem', minWidth: '20px', textAlign: 'center' }}>{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)} style={{ width: '28px', height: '28px', background: 'none', border: '0.5px solid rgba(201,168,76,0.3)', color: '#ffffff', cursor: 'pointer', fontSize: '1rem' }}>+</button>
-                  </div>
-
-                  <div style={{ fontSize: '1rem', color: '#C9A84C', fontWeight: 500, minWidth: '60px', textAlign: 'right' }}>${(item.price * item.quantity).toFixed(2)}</div>
-                  <button onClick={() => removeItem(item.id)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer', fontSize: '1.1rem', padding: '0.25rem' }}>✕</button>
+            {items.map(item => (
+              <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px 0', borderBottom: '1px solid #f0f0f0' }}>
+                <div style={{ width: '80px', height: '96px', background: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, padding: '8px' }}>
+                  {item.image_url ? (
+                    <img src={item.image_url} alt={item.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                  ) : (
+                    <span style={{ fontSize: '10px', color: '#aaa' }}>LS</span>
+                  )}
                 </div>
-              ))}
-            </div>
-
-            <div style={{ borderTop: '0.5px solid rgba(201,168,76,0.2)', paddingTop: '2rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Subtotal</span>
-                <span style={{ fontFamily: 'Georgia, serif', fontSize: '1.8rem', fontWeight: 300, color: '#ffffff' }}>${total().toFixed(2)}</span>
+                <div style={{ flex: 1 }}>
+                  <p style={{ fontSize: '11px', color: '#888', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '2px' }}>{item.brand}</p>
+                  <p style={{ fontSize: '15px', fontWeight: 600, color: '#111', marginBottom: '2px' }}>{item.name}</p>
+                  <p style={{ fontSize: '13px', color: '#888' }}>{item.size} · ${item.price}</p>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #e5e5e5' }}>
+                  <button onClick={() => updateQuantity(item.id, item.quantity - 1)} style={{ width: '32px', height: '32px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px' }}>−</button>
+                  <span style={{ width: '32px', textAlign: 'center', fontSize: '13px' }}>{item.quantity}</span>
+                  <button onClick={() => updateQuantity(item.id, item.quantity + 1)} style={{ width: '32px', height: '32px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px' }}>+</button>
+                </div>
+                <span style={{ fontSize: '15px', fontWeight: 600, minWidth: '64px', textAlign: 'right' }}>${(item.price * item.quantity).toFixed(2)}</span>
+                <button onClick={() => removeItem(item.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px', color: '#aaa' }}>✕</button>
               </div>
-              <button
-                onClick={handleCheckout}
-                style={{ width: '100%', padding: '1.1rem', background: '#C9A84C', color: '#0A0A0A', border: 'none', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', cursor: 'pointer' }}>
-                Proceed to Checkout
+            ))}
+
+            <div style={{ paddingTop: '24px', display: 'flex', justifyContent: 'flex-end', flexDirection: 'column', alignItems: 'flex-end', gap: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: '280px' }}>
+                <span style={{ fontSize: '14px', color: '#888' }}>Subtotal</span>
+                <span style={{ fontSize: '18px', fontWeight: 700, color: '#111' }}>${total().toFixed(2)} USD</span>
+              </div>
+              <p style={{ fontSize: '12px', color: '#aaa' }}>Shipping & taxes calculated at checkout</p>
+              <button onClick={handleCheckout} style={{ width: '280px', padding: '14px', background: '#111', color: '#fff', border: 'none', fontSize: '13px', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', cursor: 'pointer' }}>
+                Checkout
               </button>
-              <p style={{ textAlign: 'center', fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', marginTop: '1rem' }}>Shipping & taxes calculated at checkout</p>
             </div>
           </>
         )}
