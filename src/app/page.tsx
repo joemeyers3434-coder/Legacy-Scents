@@ -148,9 +148,57 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* NEWSLETTER */}
+      <section style={{ padding: '5rem 3rem', background: '#0A0A0A', textAlign: 'center', borderTop: '0.5px solid rgba(201,168,76,0.15)' }}>
+        <div style={{ width: '40px', height: '1px', background: '#C9A84C', margin: '0 auto 1.5rem' }} />
+        <span style={{ fontSize: '0.63rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: '#C9A84C', display: 'block', marginBottom: '1rem' }}>Stay in the Know</span>
+        <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 300, color: '#ffffff', marginBottom: '1rem' }}>Join the Inner Circle</h2>
+        <p style={{ fontSize: '0.87rem', color: 'rgba(255,255,255,0.45)', fontWeight: 300, maxWidth: '420px', margin: '0 auto 2.5rem', lineHeight: 1.9 }}>
+          Be first to know about new arrivals, exclusive drops, and member-only offers.
+        </p>
+        <div style={{ display: 'flex', gap: '0', maxWidth: '480px', margin: '0 auto' }}>
+          <input
+            type="email"
+            placeholder="Your email address"
+            style={{ flex: 1, padding: '1rem 1.5rem', background: '#111111', border: '0.5px solid rgba(201,168,76,0.3)', borderRight: 'none', color: '#ffffff', fontSize: '0.78rem', letterSpacing: '0.05em', outline: 'none', fontFamily: 'Georgia, serif' }}
+          />
+          <button
+            type="button"
+            style={{ padding: '1rem 2rem', background: '#C9A84C', color: '#0A0A0A', border: 'none', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', cursor: 'pointer', whiteSpace: 'nowrap' }}
+          >
+            Subscribe
+          </button>
+        </div>
+        <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.2)', marginTop: '1rem', letterSpacing: '0.08em' }}>No spam. Unsubscribe anytime.</p>
+      </section>
+
+      {/* CUSTOMER SERVICE */}
+      <section style={{ padding: '5rem 3rem', background: '#111111', borderTop: '0.5px solid rgba(201,168,76,0.15)' }}>
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <div style={{ width: '40px', height: '1px', background: '#C9A84C', margin: '0 auto 1.5rem' }} />
+          <span style={{ fontSize: '0.63rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: '#C9A84C', display: 'block', marginBottom: '1rem' }}>We're Here For You</span>
+          <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 300, color: '#ffffff' }}>Customer Service</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', maxWidth: '900px', margin: '0 auto' }}>
+          {[
+            { icon: '✉', title: 'Email Us', desc: 'For any questions or concerns, reach out and we\'ll respond within 24 hours.', cta: 'supportlegacyscent.co@gmail.com', href: 'mailto:supportlegacyscent.co@gmail.com' },
+            { icon: '↩', title: 'Returns & Exchanges', desc: 'Not satisfied? We offer hassle-free returns within 14 days of delivery.', cta: 'Learn More', href: '#' },
+            { icon: '⧗', title: 'Order Tracking', desc: 'All orders ship with tracking. Check your email for your tracking number.', cta: 'Track Order', href: '#' },
+          ].map((item) => (
+            <div key={item.title} style={{ background: '#0A0A0A', border: '0.5px solid rgba(201,168,76,0.15)', padding: '2.5rem 2rem', textAlign: 'center' }}>
+              <div style={{ fontSize: '1.8rem', color: '#C9A84C', marginBottom: '1rem' }}>{item.icon}</div>
+              <div style={{ fontFamily: 'Georgia, serif', fontSize: '1.1rem', fontWeight: 300, color: '#ffffff', marginBottom: '0.75rem' }}>{item.title}</div>
+              <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.8, marginBottom: '1.5rem' }}>{item.desc}</p>
+              <a href={item.href} style={{ fontSize: '0.68rem', color: '#C9A84C', letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none', borderBottom: '0.5px solid rgba(201,168,76,0.4)', paddingBottom: '2px' }}>{item.cta}</a>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* FOOTER */}
-      <footer style={{ padding: '2rem 3rem', background: '#0A0A0A', borderTop: '0.5px solid rgba(201,168,76,0.15)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <footer style={{ padding: '2.5rem 3rem', background: '#0A0A0A', borderTop: '0.5px solid rgba(201,168,76,0.15)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A84C' }}>Legacy Scents</div>
+        <a href="mailto:supportlegacyscent.co@gmail.com" style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)', textDecoration: 'none', letterSpacing: '0.08em' }}>supportlegacyscent.co@gmail.com</a>
         <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.3)' }}>© 2026 Legacy Scents. All rights reserved.</div>
       </footer>
 
