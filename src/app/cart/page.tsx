@@ -48,23 +48,28 @@ export default function CartPage() {
             <div style={{ marginBottom: '2rem' }}>
               {items.map(item => (
                 <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '1.5rem 0', borderBottom: '0.5px solid rgba(201,168,76,0.15)' }}>
-                  <div style={{ width: '60px', height: '80px', background: '#111111', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: '0.5px solid rgba(201,168,76,0.2)' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
-                      <div style={{ width: '8px', height: '6px', background: '#C9A84C', borderRadius: '1px 1px 0 0' }}></div>
-                      <div style={{ width: '6px', height: '8px', background: '#1A1A1A' }}></div>
-                      <div style={{ width: '24px', height: '36px', border: '0.5px solid rgba(201,168,76,0.3)', borderRadius: '1px 1px 3px 3px' }}></div>
-                    </div>
+                  
+                  {/* PRODUCT IMAGE */}
+                  <div style={{ width: '80px', height: '100px', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: '0.5px solid rgba(201,168,76,0.2)', padding: '0.5rem' }}>
+                    {item.image_url ? (
+                      <img src={item.image_url} alt={item.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                    ) : (
+                      <div style={{ fontSize: '0.55rem', color: '#C9A84C', letterSpacing: '0.05em', textTransform: 'uppercase', textAlign: 'center' }}>LS</div>
+                    )}
                   </div>
+
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: '0.65rem', color: '#C9A84C', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.25rem' }}>{item.brand}</div>
                     <div style={{ fontFamily: 'Georgia, serif', fontSize: '1.1rem', color: '#ffffff', marginBottom: '0.25rem' }}>{item.name}</div>
                     <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>{item.size} · ${item.price}</div>
                   </div>
+
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <button onClick={() => updateQuantity(item.id, item.quantity - 1)} style={{ width: '28px', height: '28px', background: 'none', border: '0.5px solid rgba(201,168,76,0.3)', color: '#ffffff', cursor: 'pointer', fontSize: '1rem' }}>−</button>
                     <span style={{ color: '#ffffff', fontSize: '0.9rem', minWidth: '20px', textAlign: 'center' }}>{item.quantity}</span>
                     <button onClick={() => updateQuantity(item.id, item.quantity + 1)} style={{ width: '28px', height: '28px', background: 'none', border: '0.5px solid rgba(201,168,76,0.3)', color: '#ffffff', cursor: 'pointer', fontSize: '1rem' }}>+</button>
                   </div>
+
                   <div style={{ fontSize: '1rem', color: '#C9A84C', fontWeight: 500, minWidth: '60px', textAlign: 'right' }}>${(item.price * item.quantity).toFixed(2)}</div>
                   <button onClick={() => removeItem(item.id)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer', fontSize: '1.1rem', padding: '0.25rem' }}>✕</button>
                 </div>
@@ -78,7 +83,7 @@ export default function CartPage() {
               </div>
               <button
                 onClick={handleCheckout}
-                style={{ width: '100%', padding: '1.1rem', background: '#C9A84C', color: '#0A0A0A', border: 'none', fontFamily: 'Jost, sans-serif', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', cursor: 'pointer' }}>
+                style={{ width: '100%', padding: '1.1rem', background: '#C9A84C', color: '#0A0A0A', border: 'none', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', cursor: 'pointer' }}>
                 Proceed to Checkout
               </button>
               <p style={{ textAlign: 'center', fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', marginTop: '1rem' }}>Shipping & taxes calculated at checkout</p>
