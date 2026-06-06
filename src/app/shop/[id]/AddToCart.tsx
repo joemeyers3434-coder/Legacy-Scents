@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useCartStore } from '@/store/cartStore'
-import { useCart } from '@/componets/CartProvider'
 
 interface Variant {
   id: string
@@ -25,7 +24,7 @@ export default function AddToCart({ fragrance, variants }: Props) {
   const [selectedVariant, setSelectedVariant] = useState<Variant>(variants[0])
   const [added, setAdded] = useState(false)
   const addItem = useCartStore(s => s.addItem)
-  const { openCart } = useCart()
+  const openCart = useCartStore(s => s.openCart)
 
   function handleAdd() {
     addItem({

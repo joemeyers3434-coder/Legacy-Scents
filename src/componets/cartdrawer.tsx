@@ -2,8 +2,8 @@
 
 import { useCartStore } from '@/store/cartStore'
 
-export default function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { items, removeItem, updateQuantity, total, count } = useCartStore()
+export default function CartDrawer() {
+  const { items, removeItem, updateQuantity, total, count, isOpen, closeCart } = useCartStore()
 
   async function handleCheckout() {
     const res = await fetch('/api/checkout', {
@@ -18,20 +18,20 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
 
   return (
     <>
-      {open && (
-        <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 200 }} />
+      {isOpen && (
+        <div onClick={closeCart} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 200 }} />
       )}
       <div style={{
         position: 'fixed', top: 0, right: 0, height: '100vh', width: '420px', maxWidth: '100vw',
         background: '#0A0A0A', borderLeft: '0.5px solid rgba(201,168,76,0.2)',
-        zIndex: 201, transform: open ? 'translateX(0)' : 'translateX(100%)',
+        zIndex: 201, transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
         transition: 'transform 0.35s ease', display: 'flex', flexDirection: 'column'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem 2rem', borderBottom: '0.5px solid rgba(201,168,76,0.15)' }}>
           <div style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#ffffff' }}>
             Cart <span style={{ color: '#C9A84C', fontSize: '0.75rem' }}>({count()})</span>
           </div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.5)', cursor: 'pointer', fontSize: '1.2rem', padding: '0.25rem' }}>✕</button>
+          <button onClick={closeCart} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.5)', cursor: 'pointer', fontSize: '1.2rem', padding: '0.25rem' }}>✕</button>
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem 2rem' }}>

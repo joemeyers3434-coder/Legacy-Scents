@@ -1,12 +1,9 @@
 'use client'
 
-import { useCart } from '@/componets/CartProvider'
 import { useCartStore } from '@/store/cartStore'
-import Link from 'next/link'
 
 export default function NavCart() {
-  const { openCart } = useCart()
-  const { count } = useCartStore()
+  const { openCart, count } = useCartStore()
 
   return (
     <button
