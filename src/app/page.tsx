@@ -179,17 +179,13 @@ export default async function Home() {
           <span style={{ fontSize: '0.63rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: '#C9A84C', display: 'block', marginBottom: '1rem' }}>We're Here For You</span>
           <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 300, color: '#ffffff' }}>Customer Service</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', maxWidth: '620px', margin: '0 auto' }}>
-          {[
-            { icon: '✉', title: 'Email Us', desc: 'For any questions or concerns, reach out and we\'ll respond within 24 hours.', cta: 'supportlegacyscent.co@gmail.com', href: 'mailto:supportlegacyscent.co@gmail.com' },
-            .map((item) => (
-            <div key={item.title} style={{ background: '#0A0A0A', border: '0.5px solid rgba(201,168,76,0.15)', padding: '2.5rem 2rem', textAlign: 'center' }}>
-              <div style={{ fontSize: '1.8rem', color: '#C9A84C', marginBottom: '1rem' }}>{item.icon}</div>
-              <div style={{ fontFamily: 'Georgia, serif', fontSize: '1.1rem', fontWeight: 300, color: '#ffffff', marginBottom: '0.75rem' }}>{item.title}</div>
-              <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.8, marginBottom: '1.5rem' }}>{item.desc}</p>
-              <a href={item.href} style={{ fontSize: '0.68rem', color: '#C9A84C', letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none', borderBottom: '0.5px solid rgba(201,168,76,0.4)', paddingBottom: '2px' }}>{item.cta}</a>
-            </div>
-          ))}
+        <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+          <div style={{ background: '#0A0A0A', border: '0.5px solid rgba(201,168,76,0.15)', padding: '2.5rem 2rem', textAlign: 'center' }}>
+            <div style={{ fontSize: '1.8rem', color: '#C9A84C', marginBottom: '1rem' }}>✉</div>
+            <div style={{ fontFamily: 'Georgia, serif', fontSize: '1.1rem', fontWeight: 300, color: '#ffffff', marginBottom: '0.75rem' }}>Email Us</div>
+            <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.8, marginBottom: '1.5rem' }}>For any questions or concerns, reach out and we'll respond within 24 hours.</p>
+            <a href="mailto:supportlegacyscent.co@gmail.com" style={{ fontSize: '0.68rem', color: '#C9A84C', letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none', borderBottom: '0.5px solid rgba(201,168,76,0.4)', paddingBottom: '2px' }}>supportlegacyscent.co@gmail.com</a>
+          </div>
         </div>
       </section>
 
