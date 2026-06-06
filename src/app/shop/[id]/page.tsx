@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 import AddToCart from './AddToCart'
+import NavCart from '@/componets/NavCart'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,7 +29,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         <Link href="/" style={{ fontSize: '1.3rem', letterSpacing: '0.18em', color: '#C9A84C', textTransform: 'uppercase', textDecoration: 'none' }}>Legacy Scents</Link>
         <div style={{ display: 'flex', gap: '2rem' }}>
           <Link href="/shop" style={{ color: 'rgba(247,249,252,0.6)', textDecoration: 'none', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Shop</Link>
-          <Link href="/cart" style={{ color: 'rgba(247,249,252,0.6)', textDecoration: 'none', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Cart</Link>
+          <NavCart />
         </div>
       </nav>
 
