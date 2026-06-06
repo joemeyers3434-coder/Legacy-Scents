@@ -182,8 +182,7 @@ export default async function Home() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', maxWidth: '620px', margin: '0 auto' }}>
           {[
             { icon: '✉', title: 'Email Us', desc: 'For any questions or concerns, reach out and we\'ll respond within 24 hours.', cta: 'supportlegacyscent.co@gmail.com', href: 'mailto:supportlegacyscent.co@gmail.com' },
-            { icon: '⧗', title: 'Order Tracking', desc: 'All orders ship with tracking. Check your email for your tracking number.', cta: 'Track Order', href: '#' },
-          ].map((item) => (
+            .map((item) => (
             <div key={item.title} style={{ background: '#0A0A0A', border: '0.5px solid rgba(201,168,76,0.15)', padding: '2.5rem 2rem', textAlign: 'center' }}>
               <div style={{ fontSize: '1.8rem', color: '#C9A84C', marginBottom: '1rem' }}>{item.icon}</div>
               <div style={{ fontFamily: 'Georgia, serif', fontSize: '1.1rem', fontWeight: 300, color: '#ffffff', marginBottom: '0.75rem' }}>{item.title}</div>
