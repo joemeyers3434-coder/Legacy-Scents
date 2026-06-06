@@ -102,7 +102,7 @@ export default async function Home() {
           <span style={{ fontSize: '0.63rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A84C', display: 'block', marginBottom: '0.75rem' }}>Just Dropped</span>
           <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 300, color: '#0A0A0A' }}>New Arrivals</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', maxWidth: '620px', margin: '0 auto' }}>
           {fragrances?.map((f: any) => (
             <Link key={f.id} href={`/shop/${f.id}`} style={{ textDecoration: 'none' }}>
               <div style={{ background: '#111111', border: '0.5px solid rgba(201,168,76,0.15)', overflow: 'hidden' }}>
@@ -179,10 +179,10 @@ export default async function Home() {
           <span style={{ fontSize: '0.63rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: '#C9A84C', display: 'block', marginBottom: '1rem' }}>We're Here For You</span>
           <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 300, color: '#ffffff' }}>Customer Service</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', maxWidth: '620px', margin: '0 auto' }}>
           {[
             { icon: '✉', title: 'Email Us', desc: 'For any questions or concerns, reach out and we\'ll respond within 24 hours.', cta: 'supportlegacyscent.co@gmail.com', href: 'mailto:supportlegacyscent.co@gmail.com' },
-            { icon: '↩', title: 'Returns & Exchanges', desc: 'Not satisfied? We offer hassle-free returns within 14 days of delivery.', cta: 'Learn More', href: '#' },
+            
             { icon: '⧗', title: 'Order Tracking', desc: 'All orders ship with tracking. Check your email for your tracking number.', cta: 'Track Order', href: '#' },
           ].map((item) => (
             <div key={item.title} style={{ background: '#0A0A0A', border: '0.5px solid rgba(201,168,76,0.15)', padding: '2.5rem 2rem', textAlign: 'center' }}>
