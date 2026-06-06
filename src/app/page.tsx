@@ -1,3 +1,4 @@
+import NavCart from '@/componets/NavCart'
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 
@@ -27,7 +28,7 @@ export default async function Home() {
         <Link href="/" style={{ fontSize: '1.3rem', letterSpacing: '0.18em', color: '#C9A84C', textTransform: 'uppercase', textDecoration: 'none' }}>Legacy Scents</Link>
         <div style={{ display: 'flex', gap: '2rem' }}>
           <Link href="/shop" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Shop</Link>
-          <Link href="/cart" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Cart</Link>
+          <NavCart />
         </div>
       </nav>
 
